@@ -7,17 +7,32 @@
 
 import SwiftUI
 
-struct LandmarkList: View {
+struct LandmarkList: View {                             // Create a new view for the List of Landmarks
+    @EnvironmentObject var modelData: ModelData
+    @State private var showFavoriteOnly = false
+    
+    var filteredLandmarks: [Landmark] {
+        modelData.landmarks.filter {
+            landmark in (!showFavoriteOnly || landmark.isFavorite)
+        }
+    }
+    
     var body: some View {
-        NavigationView {
-            List(landmarks) {
-                landmark in
-                NavigationLink {
-                    LandmarkDetail(landmark: landmark)
-                } label: {
-                    LandmarkRow(landmark: landmark)
+        NavigationView {                                // A navigation view gives the 'list' effect which is common in apple apps like settings
+            List {                                      // Create a list of landmarks (Identified in the DataModel.swift file)
+                Toggle(isOn: $showFavoriteOnly) {
+                    Text("Only Show Favorites")
                 }
-                .navigationTitle("Landmarks")
+                
+                ForEach(filteredLandmarks) {
+                    landmark in
+                    NavigationLink {
+                        LandmarkDetail(landmark: landmark)
+                    } label: {
+                        LandmarkRow(landmark: landmark)
+                    }
+                    .navigationTitle("Landmarks")
+                }
             }
         }
     }

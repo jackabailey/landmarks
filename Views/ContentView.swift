@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
-        LandmarkList()
+struct ContentView: View {  // The content view is a 'View' type struct
+    var body: some View {   // The body is some (or 'a') view which calls ...
+        LandmarkList()      // ... LandmarkList (Follow at LandmarkList.swift)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+struct ContentView_Previews: PreviewProvider {  // This is a Preview Provider, which provides previews to the canvas
+    static var previews: some View {            // A preview is a type of view ...
+        ContentView()                           // Which calls contentView so it can be seen in the canvas
     }
 }
